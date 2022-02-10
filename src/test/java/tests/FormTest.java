@@ -3,12 +3,15 @@ package tests;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import pages.StudentRegistrationPage;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Condition.text;
 
 public class FormTest {
+
+    StudentRegistrationPage registrationPage = new StudentRegistrationPage();
 
     @BeforeAll
     static void beforeAll() {
@@ -18,22 +21,21 @@ public class FormTest {
 
     @Test
     void FillFormTest() {
-        open("/automation-practice-form");
+        registrationPage
+                .openPage()
+                .setFirstName("Name")
+                .setLastName("Lastname")
+                .setEmail("test@mail.ru")
+                .setGender("Male")
+                .setMobileNumber("0123456789")
+                .setDateOfBirth("1", "January", "2000")
+                .setSubjects("Maths")
+                .setHobbies("Sports")
+                .uploadPicture("test-pic.jpg");
 
-        $("#firstName").setValue("Name");
-        $("#lastName").setValue("LastName");
-        $("#userEmail").setValue("test@mail.ru");
-        $(byText("Male")).click();
-        $("#userNumber").setValue("0123456789");
 
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOptionByValue("0");
-        $(".react-datepicker__year-select").selectOptionByValue("2000");
-        $(".react-datepicker__week ").$(byText("1")).click();
 
-        $("#subjectsInput").setValue("Maths").pressEnter();
-        $(byText("Sports")).click();
-        $("#uploadPicture").uploadFromClasspath("test-pic.jpg");
+
         $("#currentAddress").setValue("Ulica, dom 1");
 
         $("#state").click();
