@@ -11,6 +11,7 @@ public class StudentRegistrationPage {
     private CalendarComponent calendarComponent = new CalendarComponent();
     private TextContainerComponent textContainerComponent = new TextContainerComponent();
     private UploadFileComponent uploadFileComponent = new UploadFileComponent();
+    private LinePlaceholderComponent linePlaceholderComponent = new LinePlaceholderComponent();
 
     // locators
     private String
@@ -24,7 +25,11 @@ public class StudentRegistrationPage {
             yearInput = ".react-datepicker__year-select",
             dayInput = ".react-datepicker__week ",
             subjectInput = "#subjectsInput",
-            fileInput = "#uploadPicture";
+            fileInput = "#uploadPicture",
+            addressInput = "#currentAddress",
+            stateInput = "#state",
+            cityInput = "#city",
+            submitButton = "#submit";
 
     // actions
     public StudentRegistrationPage openPage() {
@@ -83,6 +88,28 @@ public class StudentRegistrationPage {
 
     public StudentRegistrationPage uploadPicture(String fileName) {
         uploadFileComponent.uploadFile(fileInput, fileName);
+
+        return this;
+    }
+    public StudentRegistrationPage setAddress(String address) {
+        textComponent.insertValue(addressInput, address);
+
+        return this;
+    }
+    public StudentRegistrationPage setState(String state) {
+        linePlaceholderComponent.clickOnLine(stateInput, state);
+
+        return this;
+    }
+
+    public StudentRegistrationPage setCity(String city) {
+        linePlaceholderComponent.clickOnLine(cityInput, city);
+
+        return this;
+    }
+
+    public StudentRegistrationPage clickSubmit() {
+        $(submitButton).click();
 
         return this;
     }

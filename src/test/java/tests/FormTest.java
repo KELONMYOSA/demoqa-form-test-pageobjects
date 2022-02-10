@@ -31,20 +31,11 @@ public class FormTest {
                 .setDateOfBirth("1", "January", "2000")
                 .setSubjects("Maths")
                 .setHobbies("Sports")
-                .uploadPicture("test-pic.jpg");
-
-
-
-
-        $("#currentAddress").setValue("Ulica, dom 1");
-
-        $("#state").click();
-        $(byText("NCR")).click();
-
-        $("#city").click();
-        $(byText("Delhi")).click();
-
-        $("#submit").click();
+                .uploadPicture("test-pic.jpg")
+                .setAddress("Ulica, dom 1")
+                .setState("NCR")
+                .setCity("Delhi")
+                .clickSubmit();
 
         //Checking the correctness of filling out the form
         $(".table-responsive").shouldHave(
