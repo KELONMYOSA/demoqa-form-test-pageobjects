@@ -2,6 +2,7 @@ package pages;
 
 import pages.components.*;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.*;
 
 public class StudentRegistrationPage {
@@ -12,6 +13,7 @@ public class StudentRegistrationPage {
     private TextContainerComponent textContainerComponent = new TextContainerComponent();
     private UploadFileComponent uploadFileComponent = new UploadFileComponent();
     private LinePlaceholderComponent linePlaceholderComponent = new LinePlaceholderComponent();
+    private TextCheckComponent textCheckComponent = new TextCheckComponent();
 
     // locators
     private String
@@ -29,7 +31,8 @@ public class StudentRegistrationPage {
             addressInput = "#currentAddress",
             stateInput = "#state",
             cityInput = "#city",
-            submitButton = "#submit";
+            submitButton = "#submit",
+            resultsTable = ".table-responsive";
 
     // actions
     public StudentRegistrationPage openPage() {
@@ -91,11 +94,13 @@ public class StudentRegistrationPage {
 
         return this;
     }
+
     public StudentRegistrationPage setAddress(String address) {
         textComponent.insertValue(addressInput, address);
 
         return this;
     }
+
     public StudentRegistrationPage setState(String state) {
         linePlaceholderComponent.clickOnLine(stateInput, state);
 
@@ -110,6 +115,12 @@ public class StudentRegistrationPage {
 
     public StudentRegistrationPage clickSubmit() {
         $(submitButton).click();
+
+        return this;
+    }
+
+    public StudentRegistrationPage checkForm(String fieldName, String value) {
+        textCheckComponent.checkText(resultsTable, fieldName, value);
 
         return this;
     }

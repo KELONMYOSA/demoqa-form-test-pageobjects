@@ -5,13 +5,25 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import pages.StudentRegistrationPage;
 
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Condition.text;
-
 public class FormTest {
 
-    StudentRegistrationPage registrationPage = new StudentRegistrationPage();
+    private StudentRegistrationPage registrationPage = new StudentRegistrationPage();
+    private String
+            firstName = "Name",
+            lastName = "Lastname",
+            email = "test@mail.ru",
+            gender = "Male",
+            mobileNumber = "0123456789",
+            day = "1",
+            dayCheck = "01",
+            month = "January",
+            year = "2000",
+            subject = "Maths",
+            hobby = "Sports",
+            picture = "test-pic.jpg",
+            address = "Ulica, dom 1",
+            state = "NCR",
+            city = "Delhi";
 
     @BeforeAll
     static void beforeAll() {
@@ -23,32 +35,30 @@ public class FormTest {
     void FillFormTest() {
         registrationPage
                 .openPage()
-                .setFirstName("Name")
-                .setLastName("Lastname")
-                .setEmail("test@mail.ru")
-                .setGender("Male")
-                .setMobileNumber("0123456789")
-                .setDateOfBirth("1", "January", "2000")
-                .setSubjects("Maths")
-                .setHobbies("Sports")
-                .uploadPicture("test-pic.jpg")
-                .setAddress("Ulica, dom 1")
-                .setState("NCR")
-                .setCity("Delhi")
-                .clickSubmit();
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setEmail(email)
+                .setGender(gender)
+                .setMobileNumber(mobileNumber)
+                .setDateOfBirth(day, month, year)
+                .setSubjects(subject)
+                .setHobbies(hobby)
+                .uploadPicture(picture)
+                .setAddress(address)
+                .setState(state)
+                .setCity(city)
+                .clickSubmit()
 
-        //Checking the correctness of filling out the form
-        $(".table-responsive").shouldHave(
-                text("Name LastName"),
-                text("test@mail.ru"),
-                text("Male"),
-                text("0123456789"),
-                text("01 January,2000"),
-                text("Maths"),
-                text("Sports"),
-                text("test-pic.jpg"),
-                text("Ulica, dom 1"),
-                text("NCR Delhi")
-        );
+                //Checking the correctness of filling out the form
+                .checkForm("Student Name", firstName + " " + lastName)
+                .checkForm("Student Email", email)
+                .checkForm("Gender", gender)
+                .checkForm("Mobile", mobileNumber)
+                .checkForm("Date of Birth", dayCheck + " " + month + "," + year)
+                .checkForm("Subjects", subject)
+                .checkForm("Hobbies", hobby)
+                .checkForm("Picture", picture)
+                .checkForm("Address", address)
+                .checkForm("State and City", state + " " + city);
     }
 }
